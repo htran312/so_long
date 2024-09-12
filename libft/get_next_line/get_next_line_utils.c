@@ -6,11 +6,11 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:12:05 by htran-th          #+#    #+#             */
-/*   Updated: 2024/06/11 18:44:09 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:42:49 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../libft.h"
 
 char	*ft_strchr(const char *str, int c)
 {
@@ -50,7 +50,7 @@ void	*ft_memcpy(void *to, const void *from, size_t n)
 	return (to);
 }
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen_gnl(char *str)
 {
 	size_t	i;
 
@@ -62,13 +62,13 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_strdup_gnl(char *s1)
 {
 	size_t	i;
 	size_t	len;
 	char	*ptr;
 
-	len = ft_strlen(s1);
+	len = ft_strlen_gnl(s1);
 	ptr = (char *) malloc ((len +1) * sizeof(char));
 	if (!ptr)
 		return (NULL);
@@ -89,13 +89,13 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	size_t	s2_len;
 
 	if (!s1 && !s2)
-		return (ft_strdup(""));
+		return (ft_strdup_gnl(""));
 	if (!s1)
-		return (ft_strdup(s2));
+		return (ft_strdup_gnl(s2));
 	else if (!s2)
-		return (ft_strdup(s1));
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
+		return (ft_strdup_gnl(s1));
+	s1_len = ft_strlen_gnl(s1);
+	s2_len = ft_strlen_gnl(s2);
 	res = malloc ((s1_len + s2_len +1) * (sizeof(char)));
 	if (!res)
 		return (NULL);

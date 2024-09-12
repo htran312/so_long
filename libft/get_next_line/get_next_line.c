@@ -6,11 +6,11 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:36:10 by htran-th          #+#    #+#             */
-/*   Updated: 2024/08/27 21:48:19 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:42:41 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../libft.h"
 
 static char	*ft_free(char **s)
 {
@@ -83,7 +83,7 @@ static void	ft_get_remainder(char **big_buf)
 		ft_free(big_buf);
 		return ;
 	}
-	new_big_buf = ft_strdup(*big_buf + i);
+	new_big_buf = ft_strdup_gnl(*big_buf + i);
 	free(*big_buf);
 	*big_buf = new_big_buf;
 }

@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 19:18:14 by htran-th          #+#    #+#             */
-/*   Updated: 2024/08/19 19:59:56 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:41:08 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <stddef.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 // ft_printf
 
@@ -26,6 +31,16 @@ int				ft_putnbr(int n);
 unsigned int	ft_putunbr(unsigned int n, unsigned int base);
 unsigned int	ft_putxnbr_uppercase(unsigned int n, unsigned int base);
 int				ft_printf(const char *format, ...);
+
+// get_next_line
+
+char	*ft_strchr(const char *str, int c);
+ssize_t	read(int fildes, void *buf, size_t nbyte);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strdup_gnl(char *s1);
+size_t	ft_strlen_gnl(char *str);
+void	*ft_memcpy(void *to, const void *from, size_t n);
+char	*get_next_line(int fd);
 
 // libft
 

@@ -61,8 +61,7 @@ GNL_OBJ	:=	$(GNL_SRC:.c=.o)
 all: $(NAME)
 
 $(NAME):	$(LIBFT_OBJ) $(FT_PRINTF_OBJ)	$(GNL_OBJ)
-	@ar	rcs	$(NAME)	$(LIBFT_OBJ) $(FT_PRINTF_OBJ)	$(GNL_OBJ)
-
+	ar	rcs	$(NAME)	$(LIBFT_OBJ) $(FT_PRINTF_OBJ)	$(GNL_OBJ)
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
