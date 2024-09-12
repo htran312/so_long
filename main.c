@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/11 22:51:48 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:29:22 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,70 @@ static void calculate_rows(char *map_name, t_map *map)
 
 static void read_map(char *map_name, t_map *map)
 {
+    int fd;
+    int i;
+    char *line;
+    
     calculate_columns(map_name, map);
     calculate_rows(map_name, map);
+    
+    if (map->rows * map->cols > MAX_HEIGHT * (MAX_COLS + 1))
+    
+    fd = open(map_name, O_RDONLY);
+    if (fd < 0)
+    {
+        ft_printf("Error\nFailed to open map.\n");
+        exit (EXIT_FAILURE);
+    }
+    //Allocate memory for the 2D array (matrix)
+    map->matrix = malloc(sizeof(char *) * map->rows);
+    if (!map->matrix)
+    {
+        ft_printf("Error\nCreating rows: Malloc failed!\n");
+        close (fd);
+        return ;
+    }
+    i = 0;
+    while (i < map->rows)
+    {
+        line = get_next_line(fd);
+        if (!line)
+        {
+            //Check if it's an error of just EOF
+            if (errno != 0)
+            {
+                perror("Error\n");
+                while (i--)
+                    free(map->matrix[i]);
+                free (map->matrix);
+                map->matrix = NULL;
+                close(fd);
+                return ;
+            }
+            ft_printf("Error\nUnexpected EOF in map file.\n");
+            while (i--)
+                    free(map->matrix[i]);
+                free (map->matrix);
+                map->matrix = NULL;
+                close(fd);
+                return ;
+        }
+        map->matrix[i] = ft_strtrim(line, "\n");
+        if (!map->matrix[i])
+        {
+            while (i--)
+                free (map->matrix[i]);
+            free (map->matrix);
+            map->matrix = NULL;
+            ft_printf("Error\nCreating columns: Malloc failed!\n");
+            close (fd);
+            free (line);
+            return ;
+        }
+        i++;
+        free (line);
+    }
+    close(fd);
 }
 
 int main(int argc, char **argv)
