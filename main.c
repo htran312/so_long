@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/12 22:29:22 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:05:22 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ static void calculate_columns(char *map_name, t_map *map)
         exit (EXIT_FAILURE);
     }
     map->cols = ft_strlen(line);
-    if (line[map->cols - 1] == '\n')
-        map->cols--;
     free (line);
-    close(fd);
+    close (fd);
 }
 static void calculate_rows(char *map_name, t_map *map)
 {
@@ -94,7 +92,7 @@ static void calculate_rows(char *map_name, t_map *map)
             // If it's just EOF (no error), break the loop
             break ;
         }
-        if (ft_strlen(line) - 1 != map->cols)
+        if (ft_strlen(line) != map->cols)
         {
             ft_printf("Error\nNot a rectangle map!\n");
             free(line);
@@ -116,7 +114,11 @@ static void read_map(char *map_name, t_map *map)
     calculate_columns(map_name, map);
     calculate_rows(map_name, map);
     
-    if (map->rows * map->cols > MAX_HEIGHT * (MAX_COLS + 1))
+    if (map->cols > MAX_COLS || map->rows > MAX_ROWS)
+    {
+        ft_printf("Error\nMap is too big.\n");
+        exit (EXIT_FAILURE);
+    }
     
     fd = open(map_name, O_RDONLY);
     if (fd < 0)
