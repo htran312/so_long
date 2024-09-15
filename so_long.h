@@ -49,6 +49,8 @@ typedef struct s_image
 typedef struct s_map
 {
     char **matrix;
+    char *line;
+    char *temp_matrix;
     int rows;
     int cols;
     int window_w;

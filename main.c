@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/13 19:05:22 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/15 23:29:17 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,44 @@ static void check_map_name(char *map_name)
     close(fd);
 }
 
-static void calculate_columns(char *map_name, t_map *map)
+static void check_map_shape(t_map *map)
 {
-    char *line;
-    int fd;
-    int len;
+    int y;
+    int x;
+    int temp_cols;
 
-    fd = open(map_name, O_RDONLY);
-    if (fd < 0)
+    y = 0;
+    x = 0;
+    temp_cols = ft_strlen(map->matrix[y]);
+    while (y < map->rows)
     {
-        ft_printf("Error\nFailed to open map.\n");
-        exit (EXIT_FAILURE);
-    }
-    line = get_next_line(fd);
-    if (!line)
-    {
-        if (errno != 0)
+        x = ft_strlen(matrix[y]);
+        if (x != temp_cols)
         {
-            perror("Error\n");
-            close (fd);
-            exit(EXIT_FAILURE);
+            ft_printf("Error\nNot a rectangle map!\n");
+            exit (EXIT_FAILURE);
         }
-        ft_printf("Error\nEmpty/invalid map\n");
-        close (fd);
-        exit (EXIT_FAILURE);
+        y++;
     }
-    map->cols = ft_strlen(line);
-    free (line);
-    close (fd);
+    map->cols = temp_cols;
 }
-static void calculate_rows(char *map_name, t_map *map)
-{
-    char *line;
-    int fd;
 
+static void read_map(char *map_name, t_map *map)
+{
+    int fd;
+    //open map file
     fd = open(map_name, O_RDONLY);
     if (fd < 0)
     {
         ft_printf("Error\nFailed to open map.\n");
         exit (EXIT_FAILURE);
     }
-    while (1)
+
+    //Allocate memory for the 2D array (matrix), calculate rows
+    while (map->line)
     {
-        line = get_next_line(fd);
-        if (!line)
+        map->line = get_next_line(fd);
+        if (!map->line)
         {
             if (errno != 0)
             {
@@ -92,41 +86,24 @@ static void calculate_rows(char *map_name, t_map *map)
             // If it's just EOF (no error), break the loop
             break ;
         }
-        if (ft_strlen(line) != map->cols)
-        {
-            ft_printf("Error\nNot a rectangle map!\n");
-            free(line);
-            close (fd);
-            exit (EXIT_FAILURE);
-        }
+        map->temp_matrix = ft_strjoin_gnl(map->file, map->line);
+        free (map->line);
+        if (!map->temp_matrix)
+            //free everything necessary in map. temp_matrix is NOT an array!
         map->rows++;
-        free(line);
     }
-    close(fd);
-}
+    close (fd);
+    map->matrix = ft_split(map->temp_matrix, '\n');
+    if (!map->matrix)
+        //free everything necessary in map. matrix is a 2D array so...
+    free (map->temp_matrix);
+    map->temp_matrix = NULL;
 
-static void read_map(char *map_name, t_map *map)
-{
-    int fd;
-    int i;
-    char *line;
-    
-    calculate_columns(map_name, map);
-    calculate_rows(map_name, map);
-    
-    if (map->cols > MAX_COLS || map->rows > MAX_ROWS)
-    {
-        ft_printf("Error\nMap is too big.\n");
-        exit (EXIT_FAILURE);
-    }
-    
-    fd = open(map_name, O_RDONLY);
-    if (fd < 0)
-    {
-        ft_printf("Error\nFailed to open map.\n");
-        exit (EXIT_FAILURE);
-    }
-    //Allocate memory for the 2D array (matrix)
+    //calculate x (length of each matrix[y])) & compare them
+    check_map_shape(map);
+
+
+    //this part below needs refactoring
     map->matrix = malloc(sizeof(char *) * map->rows);
     if (!map->matrix)
     {
