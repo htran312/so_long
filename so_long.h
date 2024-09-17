@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/12 17:03:00 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/17 21:05:03 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define MIN_PIXEL 16
 # define MAX_COLS 240
 # define MAX_ROWS 135
+
 
 typedef struct s_point
 {
@@ -49,6 +50,7 @@ typedef struct s_image
 typedef struct s_map
 {
     char **matrix;
+    char **matrix_dup;
     char *line;
     char *temp_matrix;
     int rows;
@@ -57,9 +59,9 @@ typedef struct s_map
     int window_h;
     int player_count;
     int exit_count;
-    //int collectible_path;
-    //int exit_path;
     int collectible_count;
+    int exit_path;
+    int collectible_path;
     t_point	start;
 	t_point	exit;
 }   t_map;

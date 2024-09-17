@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 23:05:25 by htran-th          #+#    #+#             */
-/*   Updated: 2024/05/14 19:58:46 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:14:03 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t	j;
 
 	if (!haystack && !len)
-		return (0);
+		return (NULL);
 	if (*needle == '\0')
 		return ((char *) haystack);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/15 23:29:17 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/17 21:31:28 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,123 @@ static void check_map_shape(t_map *map)
     temp_cols = ft_strlen(map->matrix[y]);
     while (y < map->rows)
     {
-        x = ft_strlen(matrix[y]);
+        x = ft_strlen(map->matrix[y]);
         if (x != temp_cols)
         {
             ft_printf("Error\nNot a rectangle map!\n");
+            free_arr (map->matrix);
+            free_arr (map->matrix_dup);
             exit (EXIT_FAILURE);
         }
         y++;
     }
     map->cols = temp_cols;
+}
+
+static void check_map_wall(t_map *map)
+{
+    int x;
+    int y;
+    
+    x = 0;
+    y = 0;
+    while (x < map->cols)
+    {
+        if (map->matrix[0][x] != '1' || map->matrix[map->rows][x] != '1')
+        {
+            ft_printf("Error\nNot a valid map\n");
+            free_arr (map->matrix);
+            free_arr (map->matrix_dup);
+            exit (EXIT_FAILURE);
+        }
+        x++;
+    }
+    while (y < map->rows)
+    {
+        if (map->matrix[y][0] != '1' || map->matrix[y][map->cols] != '1')
+        {
+            ft_printf("Error\nNot a valid map\n");
+            free_arr (map->matrix);
+            free_arr (map->matrix_dup);
+            exit (EXIT_FAILURE);
+        }
+        y++;
+    }
+}
+static void check_map_elements(t_map *map)
+{
+    int y;
+    int x;
+
+    y = 0;
+    while (y < map->rows)
+    {
+        x = 0;
+        while (x < map->cols)
+        {
+            if (ft_strchr("01CEP", map->matrix[y][x]) != NULL)
+            {
+                if (map->matrix[y][x] == 'C')
+                    map->collectible_count++;
+                else if (map->matrix[y][x] == 'E')
+                    map->exit_count++;
+                else if (map->matrix[y][x] == 'P')
+                {
+                    map->start = (t_point){x, y};
+                    map->player_count++;
+                }
+                else
+                    x++;
+            }
+            else
+            {
+                ft_printf ("Error\nWrong element(s) in the map\n");
+                free_arr (map->matrix);
+                free_arr (map->matrix_dup);
+                exit (EXIT_FAILURE);
+            }
+        }
+        y++;
+    }
+    if (map->exit_count != 1 || map->player_count != 1 || map->collectible_count < 1)
+    {
+        ft_printf ("Error\nInvalid number of element(s)\n");
+        free_arr (map->matrix);
+        free_arr (map->matrix_dup);
+        exit (EXIT_FAILURE);
+    }
+}
+
+static void flood_fill(t_map *map, int y, int x)
+{
+    //base case
+    if (map->matrix_dup[y][x] == '1')
+        return ;
+    if (map->matrix_dup[y][x] == 'C')
+        map->collectible_path++;
+    else if (map->matrix_dup[y][x] == 'E')
+        map->exit_path++;
+    map->matrix_dup[y][x] = '1';
+    flood_fill(map, y + 1, x);
+    flood_fill(map, y - 1, x);
+    flood_fill(map, y, x + 1);
+    flood_fill(map, y, x - 1);
+}
+
+static void check_map_path(t_map *map)
+{
+    flood_fill(map, map->start.y, map->start.x);
+    free_arr(map->matrix_dup);
+    if (map->collectible_count != map->collectible_path)
+    {
+        ft_printf("Error\nNo valid path to all collectibles!\n");
+        free_arr(map->matrix);
+        exit (EXIT_FAILURE);
+    }
+    if (map->collectible_path != 1)
+    {
+        ft_printf("Error\nMap is not playable!\n")
+    }
 }
 
 static void read_map(char *map_name, t_map *map)
@@ -86,7 +194,7 @@ static void read_map(char *map_name, t_map *map)
             // If it's just EOF (no error), break the loop
             break ;
         }
-        map->temp_matrix = ft_strjoin_gnl(map->file, map->line);
+        map->temp_matrix = ft_strjoin_gnl(map->temp_matrix, map->line);
         free (map->line);
         if (!map->temp_matrix)
             //free everything necessary in map. temp_matrix is NOT an array!
@@ -94,64 +202,21 @@ static void read_map(char *map_name, t_map *map)
     }
     close (fd);
     map->matrix = ft_split(map->temp_matrix, '\n');
-    if (!map->matrix)
-        //free everything necessary in map. matrix is a 2D array so...
+    map->matrix_dup = ft_split(map->temp_matrix, '\n');
+    if (!map->matrix || !map->matrix)
+        //free everything necessary in map. The split function already cleaned
+        //up after itself so maybe just set the matrix(s) to NULL? Also the
+        //temp->matrix needs to be freed too
     free (map->temp_matrix);
     map->temp_matrix = NULL;
 
     //calculate x (length of each matrix[y])) & compare them
     check_map_shape(map);
+    check_map_wall(map);
+    check_map_elements(map);
+    check_map_path(map);
 
 
-    //this part below needs refactoring
-    map->matrix = malloc(sizeof(char *) * map->rows);
-    if (!map->matrix)
-    {
-        ft_printf("Error\nCreating rows: Malloc failed!\n");
-        close (fd);
-        return ;
-    }
-    i = 0;
-    while (i < map->rows)
-    {
-        line = get_next_line(fd);
-        if (!line)
-        {
-            //Check if it's an error of just EOF
-            if (errno != 0)
-            {
-                perror("Error\n");
-                while (i--)
-                    free(map->matrix[i]);
-                free (map->matrix);
-                map->matrix = NULL;
-                close(fd);
-                return ;
-            }
-            ft_printf("Error\nUnexpected EOF in map file.\n");
-            while (i--)
-                    free(map->matrix[i]);
-                free (map->matrix);
-                map->matrix = NULL;
-                close(fd);
-                return ;
-        }
-        map->matrix[i] = ft_strtrim(line, "\n");
-        if (!map->matrix[i])
-        {
-            while (i--)
-                free (map->matrix[i]);
-            free (map->matrix);
-            map->matrix = NULL;
-            ft_printf("Error\nCreating columns: Malloc failed!\n");
-            close (fd);
-            free (line);
-            return ;
-        }
-        i++;
-        free (line);
-    }
-    close(fd);
 }
 
 int main(int argc, char **argv)
