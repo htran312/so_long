@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/17 21:31:28 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/18 22:41:55 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ static void check_map_shape(t_map *map)
         y++;
     }
     map->cols = temp_cols;
+    if (map->rows > 120 || map->cols > 120)
+    {
+        ft_printf("Error\nMap parsing: map is too large!\n");
+        free_arr (map->matrix);
+        free_arr (map->matrix_dup);
+        exit (EXIT_FAILURE);
+    }
 }
 
 static void check_map_wall(t_map *map)
@@ -71,9 +78,9 @@ static void check_map_wall(t_map *map)
     y = 0;
     while (x < map->cols)
     {
-        if (map->matrix[0][x] != '1' || map->matrix[map->rows][x] != '1')
+        if (map->matrix[0][x] != '1' || map->matrix[map->rows - 1][x] != '1')
         {
-            ft_printf("Error\nNot a valid map\n");
+            ft_printf("Error\nNot surrounded by wall!\n");
             free_arr (map->matrix);
             free_arr (map->matrix_dup);
             exit (EXIT_FAILURE);
@@ -82,9 +89,9 @@ static void check_map_wall(t_map *map)
     }
     while (y < map->rows)
     {
-        if (map->matrix[y][0] != '1' || map->matrix[y][map->cols] != '1')
+        if (map->matrix[y][0] != '1' || map->matrix[y][map->cols - 1] != '1')
         {
-            ft_printf("Error\nNot a valid map\n");
+            ft_printf("Error\nNot surrounded by wall!\n");
             free_arr (map->matrix);
             free_arr (map->matrix_dup);
             exit (EXIT_FAILURE);
@@ -158,13 +165,15 @@ static void check_map_path(t_map *map)
     free_arr(map->matrix_dup);
     if (map->collectible_count != map->collectible_path)
     {
-        ft_printf("Error\nNo valid path to all collectibles!\n");
-        free_arr(map->matrix);
+        ft_printf ("Error\nNo valid path to all collectibles!\n");
+        free_arr (map->matrix);
         exit (EXIT_FAILURE);
     }
     if (map->collectible_path != 1)
     {
-        ft_printf("Error\nMap is not playable!\n")
+        ft_printf ("Error\nNo or more than one exit!\n");
+        free_arr (map->matrix);
+        exit (EXIT_FAILURE);
     }
 }
 
@@ -201,12 +210,21 @@ static void read_map(char *map_name, t_map *map)
         map->rows++;
     }
     close (fd);
+    if (map->rows == 0)
+    {
+        ft_printf ("Error\nMap is empty!\n");
+        free (map->temp_matrix);
+        exit (EXIT_FAILURE);
+    }
     map->matrix = ft_split(map->temp_matrix, '\n');
     map->matrix_dup = ft_split(map->temp_matrix, '\n');
-    if (!map->matrix || !map->matrix)
-        //free everything necessary in map. The split function already cleaned
-        //up after itself so maybe just set the matrix(s) to NULL? Also the
-        //temp->matrix needs to be freed too
+    if (!map->matrix || !map->matrix_dup)
+    {
+        ft_printf("Error\nSplit failed!\n");
+        free (map->temp_matrix);
+        map->temp_matrix = NULL;
+        exit(EXIT_FAILURE);
+    }
     free (map->temp_matrix);
     map->temp_matrix = NULL;
 
@@ -215,8 +233,6 @@ static void read_map(char *map_name, t_map *map)
     check_map_wall(map);
     check_map_elements(map);
     check_map_path(map);
-
-
 }
 
 int main(int argc, char **argv)
@@ -232,6 +248,8 @@ int main(int argc, char **argv)
     ft_bzero(&map, sizeof(map));
     check_map_name(argv[1]);
     read_map(argv[1], &map);
+    ft_bzero(&game, sizeof(game));
+    game.map = &map;
     //map_init();
 		//- checking if the map is "real map" (filename, can be opened or not)
 		//- counting how many lines the map has: open the map and count how
@@ -250,6 +268,8 @@ int main(int argc, char **argv)
 			//- Is there at least one valid path to win?
 			//- All good? - Initialize the player's current position.
     //window_init();
+        //calculate the window size based on rows and cols from map matrix
+        //make it resizable but stay proportionally?
     //image_init();
         //- calculate img size
         //- load img

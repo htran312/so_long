@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/17 21:05:03 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:41:24 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 # include <errno.h>
 # include "libft.h"
 # include "MLX42.h"
-
-# define MAX_WIDTH 3840
-# define MAX_HEIGHT 2160
-# define MIN_PIXEL 16
-# define MAX_COLS 240
-# define MAX_ROWS 135
-
 
 typedef struct s_point
 {
