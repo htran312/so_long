@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/18 20:41:24 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/19 22:09:34 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include <errno.h>
 # include "libft.h"
 # include "MLX42.h"
+
+# define MAX_PIXEL 160
+# define RANGE 16
+
+# define PLAYER "./textures"
 
 typedef struct s_point
 {
@@ -61,6 +66,7 @@ typedef struct s_map
 
 typedef struct s_game_data
 {
+    int render_pixel;
     mlx_t *mlx;
     t_map *map;
     t_image image;
@@ -71,6 +77,6 @@ typedef struct s_game_data
 }   t_game;
 
 
-
+void start_game(t_game *game);
 
 #endif
