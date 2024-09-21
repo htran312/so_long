@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:09:50 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/19 22:23:29 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:04:37 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,22 @@ static void window_init(t_game *game)
         free_arr(game->map->matrix);
         //game->mlx here is already NULL but later in the delete function,
         //check if (game->mlx) then use mlx_terminate(game->mlx)
+        //try to use mlx_strerror to see which error happened
         exit (EXIT_FAILURE);
     }
 }
 static void image_init(t_game *game)
 {
     calculate_image_size(game);
+    game->image = ft_calloc(PNG_NUM, sizeof(mlx_image_t));
+    if (!game->image)
+    {
+        ft_printf("Error\nMemory allocation for image(s) failed!\n");
+        free_arr(game->map->matrix);
+        //check if (game->mlx) then use mlx_terminate(game->mlx)
+        //try to use mlx_strerror to see which error happened
+        exit (EXIT_FAILURE);
+    }
     
     
     

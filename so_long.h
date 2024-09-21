@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/19 22:09:34 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:22:18 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@
 # define MAX_PIXEL 160
 # define RANGE 16
 
-# define PLAYER "./textures"
+# define PNG_NUM 5
+
+# define PLAYER "./textures/player/meow000.png"
+# define COLLECTIBLE "./textures/collectible/meal.png"
+# define EXIT "./textures/exit/box.png"
+# define SPACE "./textures/color_background_53.png"
+# define WALL "./textures/wall/scratcher.png"
 
 typedef struct s_point
 {
@@ -66,12 +72,13 @@ typedef struct s_map
 
 typedef struct s_game_data
 {
-    int render_pixel;
     mlx_t *mlx;
     t_map *map;
-    t_image image;
+    mlx_image_t **image;
+    t_point image_size;
     t_point current;
     t_point next;
+    int render_pixel;
     int taken;
     int moves;
 }   t_game;
