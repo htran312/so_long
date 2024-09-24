@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/19 21:08:52 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:52:00 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,11 @@ static void check_map_elements(t_map *map)
                     map->exit_count++;
                 else if (map->matrix[y][x] == 'P')
                 {
-                    // map->start.x = x;
-                    // map->start.y = y;
-                    printf("x=%d, y=%d\n", x, y);
-                    map->start = (t_point){x, y};
-                    printf("map->start::x=%d, y=%d\n", map->start.x, map->start.y);
+                    map->start.x = x;
+                    map->start.y = y;
+                    //printf("x=%d, y=%d\n", x, y);
+                    //map->start = (t_point){x, y};
+                    //printf("map->start::x=%d, y=%d\n", map->start.x, map->start.y);
                     
                     map->player_count++;
                 }

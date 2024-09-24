@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/21 19:22:18 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:56:26 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,18 @@
 
 # define PLAYER "./textures/player/meow000.png"
 # define COLLECTIBLE "./textures/collectible/meal.png"
-# define EXIT "./textures/exit/box.png"
+# define EXIT_PATH "./textures/exit/box.png"
 # define SPACE "./textures/color_background_53.png"
 # define WALL "./textures/wall/scratcher.png"
+
+typedef enum e_object
+{
+    P,
+    C,
+    E,
+    S,
+    W,
+}   t_object;
 
 typedef struct s_point
 {
@@ -85,5 +94,7 @@ typedef struct s_game_data
 
 
 void start_game(t_game *game);
+mlx_image_t *png_to_image(t_game *game, const char *path);
+void image_to_window(t_game *game, mlx_image_t *img, int row, int col);
 
 #endif
