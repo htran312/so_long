@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:09:50 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/24 20:59:45 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:32:03 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,8 @@ void start_game(t_game *game)
     window_init(game);
     image_init(game);
     map_display(game);
+    mlx_key_hook(game->mlx, game_hooks, game);
+    mlx_close_hook(game->mlx, close_hook, game);
+    mlx_loop(game->mlx);
+    //clean_and_exit(game); maybe do it in the main?
 }

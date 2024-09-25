@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 22:18:10 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/24 19:58:31 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:56:14 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ mlx_image_t *png_to_image(t_game *game, const char *path)
         ft_printf("Error\nFailed to load texture file!\n");
         if (game->mlx)
             mlx_terminate(game->mlx);
+        int i = 0;
+        while (i < PNG_NUM)
+        {
+            if (game->image)
+            {
+                if (game->image[i])
+                    mlx_delete_image(game->mlx, game->image[i]);
+                i++;
+                free (game->image);
+            }
+        }
         free (game->map->matrix);
         exit (EXIT_FAILURE);
     }
@@ -44,6 +55,17 @@ mlx_image_t *png_to_image(t_game *game, const char *path)
         ft_printf("Error\nFailed to convert texture to image!\n");
         if (game->mlx)
             mlx_terminate(game->mlx);
+        int i = 0;
+        while (i < PNG_NUM)
+        {
+            if (game->image)
+            {
+                if (game->image[i])
+                    mlx_delete_image(game->mlx, game->image[i]);
+                i++;
+                free (game->image);
+            }
+        }
         free (game->map->matrix);
         exit (EXIT_FAILURE);
     }

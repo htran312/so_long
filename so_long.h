@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/24 19:56:26 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:37:59 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,11 @@ typedef struct s_game_data
     int moves;
 }   t_game;
 
-
+void read_map(char *map_name, t_map *map);
 void start_game(t_game *game);
 mlx_image_t *png_to_image(t_game *game, const char *path);
 void image_to_window(t_game *game, mlx_image_t *img, int row, int col);
+void game_hooks(mlx_key_data_t keydata, void *param);
+void close_hook(void *param);
 
 #endif
