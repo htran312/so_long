@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:09:50 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/25 22:32:03 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:53:08 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void image_init(t_game *game)
     }
     game->image[P] = png_to_image(game, PLAYER);
     game->image[C] = png_to_image(game, COLLECTIBLE);
-    game->image[E] = png_to_image(game, EXIT_PATH);
+    game->image[E] = png_to_image(game, EXIT_PATH_CLOSE);
+    game->image[O] = png_to_image(game, EXIT_PATH_OPEN);
     game->image[S] = png_to_image(game, SPACE);
     game->image[W] = png_to_image(game, WALL);
 }
@@ -75,7 +76,10 @@ static void map_display(t_game *game)
                 if (game->map->matrix[y][x] == 'C')
                     image_to_window(game, game->image[C], x, y);
                 else if (game->map->matrix[y][x] == 'E')
+                {
+                    image_to_window(game, game->image[O], x, y);
                     image_to_window(game, game->image[E], x, y);
+                }
             }
             x++;
         }

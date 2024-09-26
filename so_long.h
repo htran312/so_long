@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/25 22:37:59 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:51:06 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 
 # define PLAYER "./textures/player/meow000.png"
 # define COLLECTIBLE "./textures/collectible/meal.png"
-# define EXIT_PATH "./textures/exit/box.png"
+# define EXIT_PATH_CLOSE "./textures/exit/exit_box_closed.png"
+# define EXIT_PATH_OPEN "./textures/exit/exit_box_open.png"
 # define SPACE "./textures/color_background_53.png"
 # define WALL "./textures/wall/scratcher.png"
 
@@ -37,6 +38,7 @@ typedef enum e_object
     P,
     C,
     E,
+    O,
     S,
     W,
 }   t_object;
@@ -46,19 +48,6 @@ typedef struct s_point
     int x;
     int y;
 }   t_point;
-
-typedef struct s_image
-{
-    int image_w;
-    int image_h;
-    mlx_image_t	*space;
-	mlx_image_t	*wall;
-	mlx_image_t	*collectible;
-	mlx_image_t	*exit_close;
-	mlx_image_t	*exit_open;
-	mlx_image_t	*start;
-	mlx_image_t	*player;
-}   t_image;
 
 typedef struct s_map
 {
