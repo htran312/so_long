@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/26 18:51:06 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:15:14 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define MAX_PIXEL 160
 # define RANGE 16
 
-# define PNG_NUM 5
+# define PNG_NUM 6
 
 # define PLAYER "./textures/player/meow000.png"
 # define COLLECTIBLE "./textures/collectible/meal.png"
@@ -82,10 +82,14 @@ typedef struct s_game_data
 }   t_game;
 
 void read_map(char *map_name, t_map *map);
+void check_map(t_map *map);
+void flood_fill(t_map *map, int y, int x);
+void count_elements(t_map *map, int y, int x);
 void start_game(t_game *game);
 mlx_image_t *png_to_image(t_game *game, const char *path);
 void image_to_window(t_game *game, mlx_image_t *img, int row, int col);
 void game_hooks(mlx_key_data_t keydata, void *param);
 void close_hook(void *param);
+void map_error(t_map *map, char *message);
 
 #endif
