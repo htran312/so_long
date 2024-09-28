@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:36:30 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/27 19:00:33 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:29:15 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void handle_map_error(int fd, t_map *map, char *message)
 {
-    if (fd >= 0)
+    if (fd > 2)
     {
         close (fd);
         map_error(map, message);

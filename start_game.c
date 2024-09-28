@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:09:50 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/27 18:52:56 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:00:39 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void window_init(t_game *game)
     game->map->window_h = game->map->rows * render_pixel;
     game->mlx = mlx_init(game->map->window_w, game->map->window_h, "so_long", true);
     if (!game->mlx)
+        game_error(game, mlx_strerror(mlx_errno));
     //free everything necessary, at this point (probably) only matrix left
     {
         ft_printf ("Error\nFailed to set up game window!\n");

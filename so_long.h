@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/27 18:15:14 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:56:11 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ void image_to_window(t_game *game, mlx_image_t *img, int row, int col);
 void game_hooks(mlx_key_data_t keydata, void *param);
 void close_hook(void *param);
 void map_error(t_map *map, char *message);
+void game_error(t_game *game, char *message, int status);
 
 #endif
