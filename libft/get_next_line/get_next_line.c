@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:36:10 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/02 19:42:41 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:26:06 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ft_read(int fd, char *big_buf, int been_read, char *small_buf)
 			free (small_buf);
 			return (ft_free(&tmp));
 		}
-		if (ft_strchr(big_buf, '\n'))
+		if (ft_strchr_gnl(big_buf, '\n'))
 			break ;
 	}
 	free(small_buf);
@@ -64,7 +64,7 @@ static char	*ft_extract_read_line(char *big_buf)
 	read_line = malloc((i + 1) * sizeof(char));
 	if (!read_line)
 		return (NULL);
-	ft_memcpy(read_line, big_buf, i);
+	ft_memcpy_gnl(read_line, big_buf, i);
 	read_line[i] = '\0';
 	return (read_line);
 }

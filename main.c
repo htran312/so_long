@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/27 16:36:11 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:09:23 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ int main(int argc, char **argv)
     ft_bzero(&game, sizeof(game));
     game.map = &map;
     start_game(&game);
-    //clean & exit
+    exit_game(&game, "Exit game!", EXIT_SUCCESS);
 }

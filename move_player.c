@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:44:35 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/26 20:40:06 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:15:25 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@ void move_player(t_game *game)
     ft_printf("Number of move: %d\n", ++game->moves);
     if (game->map->matrix[game->current.y][game->current.x] == 'C')
     {
-        game->map->matrix[game->current.y][game->current.x] == '0';
+        game->map->matrix[game->current.y][game->current.x] = '0';
         get_collectible(game);
         if (game->taken == game->map->collectible_count)
             game->image[E]->instances[0].enabled = false;
     }
     else if (game->map->matrix[game->current.y][game->current.x] == 'E'
             && game->taken == game->map->collectible_count)
-        {
-            ft_printf("You win!\n");
-            //clean & exit;
-        }
+        exit_game(game, "You win!", EXIT_SUCCESS);
+    game->image[P]->instances[0].y = game->current.y * game->render_pixel;
+    game->image[P]->instances[0].x = game->current.x * game->render_pixel;
 }

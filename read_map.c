@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:36:30 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/28 17:29:15 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/30 22:03:30 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void read_map(char *map_name, t_map *map)
     fd = open(map_name, O_RDONLY);
     if (fd < 0)
         map_error(map, "Failed to open map!");
-    while (map->line)
+    while (1)
     {
         map->line = get_next_line(fd);
+        printf("%s\n", map->line);
         if (!map->line)
         {
             if (errno != 0)

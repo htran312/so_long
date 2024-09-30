@@ -13,6 +13,15 @@ MLX42	:=	$(MLX42_DIR)/build/libmlx42.a
 HEADERS	:= -I $(LIBFT_DIR) -I $(MLX42_DIR)/include/MLX42
 
 MAN_SRC	:=	main.c	\
+			read_map.c	\
+			check_map.c	\
+			start_game.c	\
+			initialize_image.c	\
+			display_map.c	\
+			hooks.c	\
+			move_player.c	\
+			utils.c	\
+			free.c	\
 
 MAN_OBJ	:=	$(MAN_SRC:.c=.o)
 

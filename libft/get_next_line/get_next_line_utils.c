@@ -6,13 +6,13 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:12:05 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/02 19:42:49 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:25:42 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr_gnl(const char *str, int c)
 {
 	int		i;
 	char	ch;
@@ -31,7 +31,7 @@ char	*ft_strchr(const char *str, int c)
 		return (NULL);
 }
 
-void	*ft_memcpy(void *to, const void *from, size_t n)
+void	*ft_memcpy_gnl(void *to, const void *from, size_t n)
 {
 	size_t		i;
 	char		*destination;
@@ -99,8 +99,8 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	res = malloc ((s1_len + s2_len +1) * (sizeof(char)));
 	if (!res)
 		return (NULL);
-	ft_memcpy(res, s1, s1_len);
-	ft_memcpy((res + s1_len), s2, s2_len);
+	ft_memcpy_gnl(res, s1, s1_len);
+	ft_memcpy_gnl((res + s1_len), s2, s2_len);
 	res[s1_len + s2_len] = '\0';
 	free(s1);
 	return (res);

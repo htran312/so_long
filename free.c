@@ -6,13 +6,13 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 23:08:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/27 18:54:36 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:11:02 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void free_arr(char **ar)
+void free_arr(char **ar)
 {
     int i;
 
@@ -26,7 +26,7 @@ static void free_arr(char **ar)
     free (ar);
     ar = NULL;
 }
-static void clean_map(t_map *map)
+void clean_map(t_map *map)
 {
     if (!map)
         return ;
@@ -51,7 +51,7 @@ void map_error(t_map *map, char *message)
     ft_printf("Error\n%s\n", message);
     exit(EXIT_FAILURE);
 }
-static void clean_game(t_game *game)
+void clean_game(t_game *game)
 {
     int i;
     
@@ -74,9 +74,12 @@ static void clean_game(t_game *game)
     if (game->mlx)
         mlx_terminate(game->mlx);
 }
-void game_error(t_game *game, char *message, int status)
+void exit_game(t_game *game, const char *message, int status)
 {
     clean_game(game);
-    ft_printf("Error\n%s\n", message);
+    if (status == EXIT_FAILURE)
+        ft_printf("Error\n%s\n", message);
+    else
+        ft_printf("%s\n", message);
     exit(status);
 }
