@@ -6,19 +6,18 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/01 19:15:21 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:55:24 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>
 # include <errno.h>
-#include <string.h>
+# include <string.h>
 # include "libft.h"
 # include "MLX42.h"
 
@@ -82,10 +81,13 @@ typedef struct s_game_data
     int moves;
 }   t_game;
 
+//MAP PARSING
 void read_map(char *map_name, t_map *map);
 void check_map(t_map *map);
 void count_elements(t_map *map, int y, int x);
 void flood_fill(t_map *map, int y, int x);
+
+//GAME
 void start_game(t_game *game);
 void image_init(t_game *game);
 void calculate_image_size(t_game *game);
@@ -94,7 +96,10 @@ void map_display(t_game *game);
 void image_to_window(t_game *game, mlx_image_t *img, int col, int row);
 void game_hooks(mlx_key_data_t keydata, void *param);
 void move_player(t_game *game);
+void window_resize_hook(int width, int height, void *param);
 void close_hook(void *param);
+
+//CLEAN AND EXIT
 void free_arr(char **ar);
 void clean_map(t_map *map);
 void map_error(t_map *map, char *message);

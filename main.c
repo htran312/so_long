@@ -6,13 +6,13 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:26:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/30 19:09:23 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:58:56 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void check_map_name(char *map_name)
+static void validate_file(char *map_name)
 {
     int len;
     int fd;
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
         exit (EXIT_FAILURE);
     }
     ft_bzero(&map, sizeof(map));
-    check_map_name(argv[1]);
+    validate_file(argv[1]);
     read_map(argv[1], &map);
     check_map(&map);
     ft_bzero(&game, sizeof(game));

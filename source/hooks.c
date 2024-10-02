@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:10:26 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/30 19:04:07 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:17:21 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,28 @@ void game_hooks(mlx_key_data_t keydata, void *param)
             move_player(game);
     }
 }
+void window_resize_hook(int width, int height, void *param)
+{
+    int i;
+    t_game *game;
+    
+    game = (t_game *)param;
+    game->map->window_w = width;
+    game->map->window_h = height;
+    i = 0;
+    while(i < PNG_NUM)
+    {
+        
+        if (game->image[i])
+            mlx_delete_image(game->mlx, game->image[i]);
+        i++;
+    }
+    free (game->image);
+    game->image = NULL;
+    image_init(game);
+    map_display(game);
+}
+
 void close_hook(void *param)
 {
     t_game *game;

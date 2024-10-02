@@ -1,29 +1,30 @@
-NAME := so_long
+NAME 		:= so_long
 
-CC := cc
-CFLAGS := -Wall -Wextra -Werror
-MLX42_FLAGS	:=	-ldl -lglfw -pthread -lm
+CC 			:= cc
+CFLAGS 		:= -Wall -Wextra -Werror
 
 LIBFT_DIR	:=	./libft
-LIBFT	:=	$(LIBFT_DIR)/libft.a
+LIBFT		:=	$(LIBFT_DIR)/libft.a
 
 MLX42_DIR	:=	./MLX42
-MLX42	:=	$(MLX42_DIR)/build/libmlx42.a
+MLX42		:=	$(MLX42_DIR)/build/libmlx42.a
+MLX42_FLAGS	:=	-ldl -lglfw -pthread -lm
 
-HEADERS	:= -I $(LIBFT_DIR) -I $(MLX42_DIR)/include/MLX42
+HEADERS		:= -I $(LIBFT_DIR) -I $(MLX42_DIR)/include/MLX42 -I./include
 
-MAN_SRC	:=	main.c	\
-			read_map.c	\
-			check_map.c	\
-			start_game.c	\
-			initialize_image.c	\
-			display_map.c	\
-			hooks.c	\
-			move_player.c	\
-			utils.c	\
-			free.c	\
+MAN_DIR 	:=	./source
+MAN_FILES	:=	read_map.c		\
+				check_map.c		\
+				start_game.c	\
+				init_image.c	\
+				display_map.c	\
+				hooks.c			\
+				move_player.c	\
+				utils.c			\
+				free.c
+MAN_SRC			:= main.c	$(addprefix	$(MAN_DIR)/,	$(MAN_FILES))
 
-MAN_OBJ	:=	$(MAN_SRC:.c=.o)
+MAN_OBJ			:=	$(MAN_SRC:.c=.o)
 
 all:	$(NAME)
 
