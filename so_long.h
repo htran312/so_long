@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/30 20:38:00 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:15:21 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define COLLECTIBLE "./textures/collectible/meal.png"
 # define EXIT_PATH_CLOSE "./textures/exit/exit_box_closed.png"
 # define EXIT_PATH_OPEN "./textures/exit/exit_box_open.png"
-# define SPACE "./textures/color_background_53.png"
+# define SPACE "./textures/space/space-pink.png"
 # define WALL "./textures/wall/scratcher.png"
 
 typedef enum e_object

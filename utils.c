@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 22:18:10 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/30 19:26:58 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:45:00 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void flood_fill(t_map *map, int y, int x)
 {
-    //base case
     if (map->matrix_dup[y][x] == '1')
         return ;
     if (map->matrix_dup[y][x] == 'C')
@@ -42,9 +41,6 @@ void count_elements(t_map *map, int y, int x)
     {
         map->start.x = x;
         map->start.y = y;
-        //printf("x=%d, y=%d\n", x, y);
-        //map->start = (t_point){x, y};
-        //printf("map->start::x=%d, y=%d\n", map->start.x, map->start.y);
         map->player_count++;
     }
 }

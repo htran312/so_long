@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:38:30 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/27 17:26:34 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:32:16 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,10 @@ static void check_map_path(t_map *map)
 {
     flood_fill(map, map->start.y, map->start.x);
     free_arr(map->matrix_dup);
+    map->matrix_dup = NULL;
     if (map->collectible_count != map->collectible_path)
         map_error(map, "No valid path to all collectibles!");
-    if (map->collectible_path != 1)
+    if (map->exit_path != 1)
         map_error(map, "No or more than one exit!");
 }
 void check_map(t_map *map)

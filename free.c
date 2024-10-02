@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 23:08:23 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/30 20:11:02 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:30:40 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void free_arr(char **ar)
     int i;
 
     i = 0;
+    
+    if (!ar)
+        return ;
     while (ar[i])
     {
         free (ar[i]);
@@ -24,7 +27,6 @@ void free_arr(char **ar)
         i++;
     }
     free (ar);
-    ar = NULL;
 }
 void clean_map(t_map *map)
 {
@@ -41,9 +43,15 @@ void clean_map(t_map *map)
         map->temp_matrix = NULL;
     }
     if (map->matrix)
+    {
         free_arr(map->matrix);
+        map->matrix = NULL;
+    }
     if (map->matrix_dup)
+    {
         free_arr(map->matrix_dup);
+        map->matrix_dup = NULL;
+    }
 }
 void map_error(t_map *map, char *message)
 {

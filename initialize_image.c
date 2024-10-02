@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:20:42 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/30 19:55:25 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:30:46 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,13 @@ mlx_image_t *png_to_image(t_game *game, const char *path)
     mlx_texture_t *texture;
     mlx_image_t *img;
     
-    //load
     texture = mlx_load_png(path);
     if (!texture)
         exit_game(game, mlx_strerror(mlx_errno), EXIT_FAILURE);
-    //convert
     img = mlx_texture_to_image(game->mlx, texture);
     mlx_delete_texture(texture);
     if (!img)
         exit_game(game, mlx_strerror(mlx_errno), EXIT_FAILURE);
-    //resize
     if (!mlx_resize_image(img, game->render_pixel, game->render_pixel))
         exit_game(game, mlx_strerror(mlx_errno), EXIT_FAILURE);
     return (img);

@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:44:35 by htran-th          #+#    #+#             */
-/*   Updated: 2024/09/30 20:15:25 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:23:17 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ void move_player(t_game *game)
     {
         game->map->matrix[game->current.y][game->current.x] = '0';
         get_collectible(game);
+        game->taken++;
         if (game->taken == game->map->collectible_count)
+        {
             game->image[E]->instances[0].enabled = false;
+            game->image[O]->instances[0].enabled = true;
+        }
     }
     else if (game->map->matrix[game->current.y][game->current.x] == 'E'
             && game->taken == game->map->collectible_count)
