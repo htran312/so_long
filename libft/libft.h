@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 19:18:14 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/01 14:23:43 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:03:13 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int				ft_printf(const char *format, ...);
 
 // get_next_line
 
-char	*ft_strchr_gnl(const char *str, int c);
-ssize_t	read(int fildes, void *buf, size_t nbyte);
-char	*ft_strjoin_gnl(char *s1, char *s2);
-char	*ft_strdup_gnl(char *s1);
-size_t	ft_strlen_gnl(char *str);
-void	*ft_memcpy_gnl(void *to, const void *from, size_t n);
-char	*get_next_line(int fd);
+char			*ft_strchr_gnl(const char *str, int c);
+ssize_t			read(int fildes, void *buf, size_t nbyte);
+char			*ft_strjoin_gnl(char *s1, char *s2);
+char			*ft_strdup_gnl(char *s1);
+size_t			ft_strlen_gnl(char *str);
+void			*ft_memcpy_gnl(void *to, const void *from, size_t n);
+char			*get_next_line(int fd);
 
 // libft
 
