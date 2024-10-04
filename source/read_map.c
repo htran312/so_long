@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:36:30 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/03 17:58:46 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:55:53 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	handle_map_error(int fd, t_map *map, char *message)
 	}
 }
 
-static void	read_map_helper(t_map *map)
+static void	split_new_line(t_map *map)
 {
 	if (map->rows == 0)
 		map_error(map, "Map is empty!");
@@ -33,13 +33,8 @@ static void	read_map_helper(t_map *map)
 	map->temp_matrix = NULL;
 }
 
-void	read_map(char *map_name, t_map *map)
+static void	get_map_line(int fd, t_map *map)
 {
-	int	fd;
-
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-		map_error(map, "Failed to open map!");
 	while (1)
 	{
 		map->line = get_next_line(fd);
@@ -50,11 +45,31 @@ void	read_map(char *map_name, t_map *map)
 			break ;
 		}
 		map->temp_matrix = ft_strjoin_gnl(map->temp_matrix, map->line);
-		free (map->line);
 		if (!map->temp_matrix)
+		{
+			free (map->line);
+			while (1)
+			{
+				map->line = get_next_line(fd);
+				if (!map->line)
+					break ;
+				free (map->line);
+			}
 			handle_map_error(fd, map, "Map line appending failed!");
+		}
+		free (map->line);
 		map->rows++;
 	}
+}
+
+void	read_map(char *map_name, t_map *map)
+{
+	int	fd;
+
+	fd = open(map_name, O_RDONLY);
+	if (fd < 0)
+		map_error(map, "Failed to open map!");
+	get_map_line(fd, map);
 	close (fd);
-	read_map_helper(map);
+	split_new_line(map);
 }
