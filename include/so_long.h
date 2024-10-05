@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/03 20:06:59 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:55:28 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 # define MAX_PIXEL 160
 # define RANGE 16
 
-# define PNG_NUM 6
+# define PNG_NUM 9
 
-# define PLAYER "./textures/player/meow000.png"
+# define PLAYER_RIGHT "./textures/player/meow-right.png"
+# define PLAYER_LEFT "./textures/player/meow-left.png"
+# define PLAYER_UP "./textures/player/meow-up.png"
+# define PLAYER_DOWN "./textures/player/meow-down.png"
 # define COLLECTIBLE "./textures/collectible/meal.png"
 # define EXIT_PATH_CLOSE "./textures/exit/exit_box_closed.png"
 # define EXIT_PATH_OPEN "./textures/exit/exit_box_open.png"
@@ -35,7 +38,10 @@
 
 typedef enum e_object
 {
-	P,
+	R,
+	L,
+	U,
+	D,
 	C,
 	E,
 	O,

@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:24:41 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/04 20:02:35 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:45:05 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ void	image_to_window(t_game *game, mlx_image_t *img, int col, int row)
 	px = game->render_pixel;
 	if (mlx_image_to_window(game->mlx, img, col * px, row * px) < 0)
 		exit_game(game, mlx_strerror(mlx_errno), EXIT_FAILURE);
+}
+
+static void	put_player(t_game *game, int x, int y)
+{
+	image_to_window(game, game->image[D], x, y);
+	image_to_window(game, game->image[U], x, y);
+	image_to_window(game, game->image[L], x, y);
+	image_to_window(game, game->image[R], x, y);
+	game->image[U]->instances[0].enabled = true;
+	game->image[U]->instances[0].enabled = false;
+	game->image[L]->instances[0].enabled = false;
+	game->image[R]->instances[0].enabled = false;
 }
 
 void	map_display(t_game *game)
@@ -45,5 +57,5 @@ void	map_display(t_game *game)
 			}
 		}
 	}
-	image_to_window(game, game->image[P], game->current.x, game->current.y);
+	put_player(game, game->current.x, game->current.y);
 }

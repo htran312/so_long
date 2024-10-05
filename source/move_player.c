@@ -6,13 +6,13 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:44:35 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/03 17:53:38 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:00:57 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	get_collectible(t_game *game)
+static void	get_collectible(t_game *game)
 {
 	int	i;
 	int	rp;
@@ -49,6 +49,12 @@ void	move_player(t_game *game)
 	else if (game->map->matrix[game->current.y][game->current.x] == 'E'
 		&& game->taken == game->map->collectible_count)
 		exit_game(game, "You win!", EXIT_SUCCESS);
-	game->image[P]->instances[0].y = game->current.y * game->render_pixel;
-	game->image[P]->instances[0].x = game->current.x * game->render_pixel;
+	game->image[D]->instances[0].y = game->current.y * game->render_pixel;
+	game->image[D]->instances[0].x = game->current.x * game->render_pixel;
+	game->image[U]->instances[0].y = game->current.y * game->render_pixel;
+	game->image[U]->instances[0].x = game->current.x * game->render_pixel;
+	game->image[L]->instances[0].y = game->current.y * game->render_pixel;
+	game->image[L]->instances[0].x = game->current.x * game->render_pixel;
+	game->image[R]->instances[0].y = game->current.y * game->render_pixel;
+	game->image[R]->instances[0].x = game->current.x * game->render_pixel;
 }

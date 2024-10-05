@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 22:03:36 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/04 19:09:53 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:54:52 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	image_init(t_game *game)
 	game->image = ft_calloc(PNG_NUM, sizeof(mlx_image_t));
 	if (!game->image)
 		exit_game(game, "Memory allocation for image(s) failed!", EXIT_FAILURE);
-	game->image[P] = png_to_image(game, PLAYER);
+	game->image[R] = png_to_image(game, PLAYER_RIGHT);
+	game->image[L] = png_to_image(game, PLAYER_LEFT);
+	game->image[U] = png_to_image(game, PLAYER_UP);
+	game->image[D] = png_to_image(game, PLAYER_DOWN);
 	game->image[C] = png_to_image(game, COLLECTIBLE);
 	game->image[E] = png_to_image(game, EXIT_PATH_CLOSE);
 	game->image[O] = png_to_image(game, EXIT_PATH_OPEN);
