@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:24:41 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/05 20:45:05 by htran-th         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:54:55 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	put_player(t_game *game, int x, int y)
 	image_to_window(game, game->image[U], x, y);
 	image_to_window(game, game->image[L], x, y);
 	image_to_window(game, game->image[R], x, y);
-	game->image[U]->instances[0].enabled = true;
+	game->image[D]->instances[0].enabled = true;
 	game->image[U]->instances[0].enabled = false;
 	game->image[L]->instances[0].enabled = false;
 	game->image[R]->instances[0].enabled = false;
