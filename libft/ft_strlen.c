@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:39:13 by htran-th          #+#    #+#             */
-/*   Updated: 2024/05/14 20:07:27 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:08:44 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const	char *str)
 {
 	size_t	i;
 
+	// if (!str)
+	// 	return (0);
 	i = 0;
 	while (str[i] != '\0')
 	{

@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:38:30 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/03 20:56:49 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:03:22 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	check_map_shape(t_map *map)
 	temp_cols = ft_strlen(map->matrix[y]);
 	while (y < map->rows)
 	{
+		if (!map->matrix[y])
+			map_error(map, "Unexpected empty line!");
 		x = ft_strlen(map->matrix[y]);
 		if (x != temp_cols)
 			map_error(map, "Not a rectangle map!");

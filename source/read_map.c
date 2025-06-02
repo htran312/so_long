@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:36:30 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/04 21:55:53 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:02:17 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	split_new_line(t_map *map)
 
 static void	get_map_line(int fd, t_map *map)
 {
+	char	*temp;
 	while (1)
 	{
 		map->line = get_next_line(fd);
@@ -44,8 +45,8 @@ static void	get_map_line(int fd, t_map *map)
 				handle_map_error(fd, map, strerror(errno));
 			break ;
 		}
-		map->temp_matrix = ft_strjoin_gnl(map->temp_matrix, map->line);
-		if (!map->temp_matrix)
+		temp = ft_strjoin_gnl(map->temp_matrix, map->line);
+		if (!temp)
 		{
 			free (map->line);
 			while (1)
@@ -57,6 +58,7 @@ static void	get_map_line(int fd, t_map *map)
 			}
 			handle_map_error(fd, map, "Map line appending failed!");
 		}
+		map->temp_matrix = temp;
 		free (map->line);
 		map->rows++;
 	}

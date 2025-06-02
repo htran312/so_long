@@ -44,7 +44,7 @@ $(MLX42):	.cloned
 %.o:	%.c
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
-$(LIBFT):
+
 	@make -C $(LIBFT_DIR)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:41:55 by htran-th          #+#    #+#             */
-/*   Updated: 2024/10/05 18:55:28 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:23:36 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include "libft.h"
 # include "MLX42.h"
+# include <stdio.h>
 
 # define MAX_PIXEL 160
 # define RANGE 16
